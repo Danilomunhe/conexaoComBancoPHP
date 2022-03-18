@@ -26,8 +26,24 @@
             case 'CONTATOS': 
                 //Import da controller contatos
                 require_once('controller/controllerContatos.php');
-               if($action=='INSERIR')
-                    inserirContato($_POST);
+                
+                //Validação para identificar o tipo de ação que será realizada
+               if($action=='INSERIR'){
+                    //Chama a função de inserir na controller
+                    $resposta = inserirContato($_POST);
+
+                    //Valida o tipo de retorno para ver se foi booleano
+                    if(is_bool($resposta)){
+                        //verificar se o retorno foi verdadeiro
+                        if($resposta)
+                            echo("<script>alert('Registro Inserido com sucesso');
+                            window.location.href='index.php'</script>"); 
+
+                    //Se o retorno for um array significa que houve um erro mo processo de inserção
+                    }elseif(is_array($resposta))
+                        echo("<script> alert('".$resposta['message']."');
+                        window.history.back(); </script>");
+                } 
             break;
         }
     }

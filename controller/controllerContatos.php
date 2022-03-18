@@ -28,11 +28,18 @@
                     "observacao" => $dadosContato['txtObs']
                 );
 
+                //Import do arquivo de modelagem para manipular o BD
                 require_once('model/bd/contato.php');
-                insertContato($arrayDados);
+                //Chama a função que fará o insert no BD (etstá função está na model)
+                if(insertContato($arrayDados))
+                    return true;
+                else 
+                    return array('idErro' => 1, 
+                                 'message' => 'Não foi possíve inserir os dados no Banco de Dados');
 
             }else{
-                echo('Dados incompletos');
+                return array('idErro' => 2,
+                             'message' => 'Existem campos obrigatórios que não foram preenchidos');
             }
         }
      }
@@ -48,5 +55,15 @@
     //Função para solicitar os dados da model e encaminhar a lista de contatos para a View
      function listarContato(){
 
+        //import do arquivo que vai buscar os dados
+        require_once('model/bd/contato.php');
+
+        //Chama a função que vai buscar os dados no banco de dados
+        $dados = selectAllContato();
+
+        if(!empty($dados))
+            return $dados;
+        else 
+            return false;    
      }
 ?>
