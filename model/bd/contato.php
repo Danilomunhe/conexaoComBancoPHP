@@ -12,6 +12,9 @@
     //função para realizar o insert no banco de dados
     function insertContato($dadosContato){
 
+        //iniciando varial de statusResposta
+        $statusResposta = (boolean) false;
+        
         //Abre a conexão com o BD
         $conexao = conexaoMySql();
 
@@ -32,11 +35,13 @@
        if (mysqli_query($conexao, $sql)){
             //Validação para verificar se uma linha foi acescentado no BD
             if(mysqli_affected_rows($conexao))
-                return true;
-            else
-                return false;
-        }else 
-            return false; 
+                $statusResposta = true;
+        }
+
+        //Solicita o fechamento da conexão com o bd
+        fecharConexao($conexao);
+
+        return $statusResposta;
     }
 
     //função para realizar o update no banco de dados
@@ -56,7 +61,7 @@
         $conexao = conexaoMySql();
 
         //Script para listar todos os dados do BD
-        $sql = "select * from tblcontatos";
+        $sql = "select * from tblcontatos order by idcontato desc ";
 
  
         //Quando mandamos um script para o bando do tipo insert, update e delete. Eles não devolvem resultados do banco, apenas se deu certo ou não
@@ -85,6 +90,10 @@
                 );
                 $cont++;
             }
+
+            //solicita o fechamento da conexao com o banco de dados
+            fecharConexao($conexao);
+
             return $arrayDados;
         }
     }

@@ -83,8 +83,11 @@
                 
                
                 <?php
+                    //import do arquivo da controller para solicitar a listagem dos dados
                     require_once('controller/controllerContatos.php');
                     $listContato = listarContato();
+
+                    //Estrutura de repetição para retirar os dados da array
                     foreach($listContato as $item){                
                 ?>
 
