@@ -14,11 +14,12 @@
     $component = (string) null;
 
     //Validação para verificar se a requisição é um post de um formulário
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET'){
         
         //recebendo dados via URl para saber quem está solicitando e qual ação será realizada
         $component = strtoupper($_GET['component']);
         $action = strtoupper($_GET['action']); 
+
 
         //Estrutura condicional para validar quem está solicitando algo para o router
         switch($component){
@@ -43,6 +44,25 @@
                     }elseif(is_array($resposta))
                         echo("<script> alert('".$resposta['message']."');
                         window.history.back(); </script>");
+                }elseif($action == 'DELETAR'){
+                    
+                    //Recebe o id do registro que deverá ser excluído, 
+                    //que foi enviado pela url no link da imagem do excluir
+                    //que foi acionado na index 
+                    $idContato = $_GET['id'];
+
+                    $resposta = excluirContato($idContato);
+
+                    if(is_bool($resposta)){
+                        //verificar se o retorno foi verdadeiro
+                        if($resposta){
+                            echo("<script>alert('Registro excluído com sucesso');
+                            window.location.href='index.php'</script>"); 
+                        }
+                    }elseif(is_array($resposta)){
+                        echo("<script> alert('".$resposta['message']."');
+                        window.history.back(); </script>");
+                    }
                 } 
             break;
         }

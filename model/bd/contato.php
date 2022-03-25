@@ -50,8 +50,27 @@
     }
 
     //função para realizar o delete no banco de dados
-    function deleteContato(){
-         
+    function deleteContato($id){
+        
+        //declaração da variável para utilizar no return dessa função
+        $statusResposta = (boolean) false;
+        
+        //Abre a conexão com o banco de dados
+        $conexao = conexaoMySql();
+
+        //Script para deletar um registro no bd
+        $sql = "delete from tblcontatos where idcontato=".$id;
+
+        //valida se o script está correto, sem erro de sintaxe e executa no bd
+        if(mysqli_query($conexao, $sql)){
+           //valida se o bd teve sucesso na execução do script
+            if(mysqli_affected_rows($conexao))
+                $statusResposta = true;
+        }
+
+            fecharConexao($conexao);
+            return $statusResposta;
+
     }
 
     //função para realizar o select no banco de dados
@@ -82,11 +101,12 @@
                
                 //Cria um array com os dados do BD
                 $arrayDados[$cont] = array(
-                    "nome"  => $rsDados['nome'],
+                    "id"       => $rsDados['idcontato'],
+                    "nome"     => $rsDados['nome'],
                     "telefone" => $rsDados['telefone'],
                     "celular"  => $rsDados['celular'],
-                    "email"  => $rsDados['email'],
-                    "obs"  => $rsDados['obs']
+                    "email"    => $rsDados['email'],
+                    "obs"      => $rsDados['obs']
                 );
                 $cont++;
             }
