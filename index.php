@@ -1,11 +1,11 @@
 <?php
 
-        $id         = null;
-        $nome       = null;
-        $telefone   = null;
-        $celular    = null;
-        $email      = null;
-        $obs        = null;
+        $id         = (string) null;
+        $nome       = (string) null;
+        $telefone   = (string) null;
+        $celular    = (string) null;
+        $email      = (string) null;
+        $obs        = (string) null;
     //valida se a utilização de variaveis de sessao esta ativa no servidor
     if(session_status()){
         //valida se a variável de sessão dados contatos não está vazia
