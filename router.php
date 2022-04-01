@@ -29,7 +29,8 @@
                 require_once('controller/controllerContatos.php');
                 
                 //Validação para identificar o tipo de ação que será realizada
-               if($action=='INSERIR'){
+               if($action=='INSERIR')
+               {
                     //Chama a função de inserir na controller
                     $resposta = inserirContato($_POST);
 
@@ -44,7 +45,8 @@
                     }elseif(is_array($resposta))
                         echo("<script> alert('".$resposta['message']."');
                         window.history.back(); </script>");
-                }elseif($action == 'DELETAR'){
+                }
+                elseif($action == 'DELETAR'){
                     
                     //Recebe o id do registro que deverá ser excluído, 
                     //que foi enviado pela url no link da imagem do excluir
@@ -63,7 +65,32 @@
                         echo("<script> alert('".$resposta['message']."');
                         window.history.back(); </script>");
                     }
-                } 
+                }elseif($action == 'BUSCAR'){
+
+                    //Recebe o id do registro que deverá ser editado, 
+                    //que foi enviado pela url no link da imagem do editar
+                    //que foi acionado na index 
+                    $idContato = $_GET['id'];
+
+                    $dados = buscarContato($idContato);
+                    
+                    //Ativa a utilização de variáveis de sessao no servidor
+                    session_start();
+
+                    //Guarda em uma variável de sessão os dados que o BD retornou para a busca do id
+                    //OBS: essa variável de sessão será utilizada na index.php, para colocar os dados
+                    //nas caixas de texto.
+                    $_SESSION['dadosContato'] = $dados;
+
+                    //Utilizando o require apenas iremos importar a tela da index,
+                    //assim não ocorrerá um novo carregamento 
+                    require_once('index.php');
+                    
+                    //Utilizando o header podemos chamar a index.php,
+                    //porém haverá uma ação de carregamento no navegador
+                    //piscando a tela novamente
+                    //header('location: index.php')
+                }
             break;
         }
     }

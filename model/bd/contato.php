@@ -83,7 +83,7 @@
         $sql = "select * from tblcontatos order by idcontato desc ";
 
  
-        //Quando mandamos um script para o bando do tipo insert, update e delete. Eles não devolvem resultados do banco, apenas se deu certo ou não
+        //Quando mandamos um script para o banco do tipo insert, update e delete. Eles não devolvem resultados do banco, apenas se deu certo ou não
         //No select o banco deve retornar uma lista de dados;
 
         //Executa um script no banco de dados e guarda o retorno dos dados, se houver
@@ -118,4 +118,46 @@
         }
     }
 
+    //função para realizar o select no banco de dados pelo id                                       
+    function selectByIdContato($id){
+
+        //Abre a conexão com o banco de dados
+        $conexao = conexaoMySql();
+
+        //Script para listar todos os dados do BD
+        $sql = "select * from tblcontatos where idcontato =" .$id;
+
+ 
+        //Quando mandamos um script para o banco do tipo insert, update e delete. Eles não devolvem resultados do banco, apenas se deu certo ou não
+        //No select o banco deve retornar uma lista de dados;
+
+        //Executa um script no banco de dados e guarda o retorno dos dados, se houver
+        $result = mysqli_query($conexao, $sql);
+
+        //Valida se o BD retornou registros
+        if($result){
+
+            //mysqli_fetch_assoc() - permite converter os dados do BD
+            //em um array para manipulação no PHP
+            //Nesta repetição estamos, convertendo os dados do BD em um array ($rsDados), além de
+            //o próprio while conseguir a quantidade de vezes que deveria ser feita a repetição
+           
+            if($rsDados = mysqli_fetch_assoc($result)){
+               
+                //Cria um array com os dados do BD
+                $arrayDados = array(
+                    "id"       => $rsDados['idcontato'],
+                    "nome"     => $rsDados['nome'],
+                    "telefone" => $rsDados['telefone'],
+                    "celular"  => $rsDados['celular'],
+                    "email"    => $rsDados['email'],
+                    "obs"      => $rsDados['obs']
+                );
+            }
+        }
+            //solicita o fechamento da conexao com o banco de dados
+            fecharConexao($conexao);
+
+            return $arrayDados;
+        }                                                                                
 ?>
