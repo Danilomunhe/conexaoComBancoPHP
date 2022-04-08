@@ -45,8 +45,33 @@
     }
 
     //função para realizar o update no banco de dados
-    function updateContato(){
-         
+    function updateContato($dadosContato){
+            //iniciando varial de statusResposta
+            $statusResposta = (boolean) false;
+        
+            //Abre a conexão com o BD
+            $conexao = conexaoMySql();
+    
+            //Monta o script para enviar para o banco de dados
+            $sql = "update tblcontatos set  nome     ='".$dadosContato['nome']."', 
+                                            telefone =".$dadosContato['telefone'].", 
+                                            celular  ='".$dadosContato['celular']."', 
+                                            email    ='".$dadosContato['email']."', 
+                                            obs      ='".$dadosContato['observacao']."' 
+                                            where idcontato=".$dadosContato['idContato'];
+            
+            //Executa o script no BD
+                //Valiação para verificar se o script sql está correto
+           if (mysqli_query($conexao, $sql)){
+                //Validação para verificar se uma linha foi acescentado no BD
+                if(mysqli_affected_rows($conexao))
+                    $statusResposta = true;
+            }
+    
+            //Solicita o fechamento da conexão com o bd
+            fecharConexao($conexao);
+    
+            return $statusResposta; 
     }
 
     //função para realizar o delete no banco de dados
@@ -97,6 +122,7 @@
             //Nesta repetição estamos, convertendo os dados do BD em um array ($rsDados), além de
             //o próprio while conseguir a quantidade de vezes que deveria ser feita a repetição
             $cont = 0;
+            $arrayDados = null;
             while($rsDados = mysqli_fetch_assoc($result)){
                
                 //Cria um array com os dados do BD

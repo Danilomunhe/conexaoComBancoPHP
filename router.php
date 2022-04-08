@@ -90,6 +90,24 @@
                     //porém haverá uma ação de carregamento no navegador
                     //piscando a tela novamente
                     //header('location: index.php')
+                }elseif($action == "EDITAR"){
+                    
+                     //Recebe o id que foi enviado via action do form pela url
+                    $idContato = $_GET['id'];
+                    //Chama a função de inserir na controller
+                    $resposta = atualizarContato($_POST, $idContato);
+
+                    //Valida o tipo de retorno para ver se foi booleano
+                      if(is_bool($resposta)){
+                          //verificar se o retorno foi verdadeiro
+                          if($resposta)
+                              echo("<script>alert('Registro Atualizado com sucesso');
+                              window.location.href='index.php'</script>"); 
+  
+                      //Se o retorno for um array significa que houve um erro mo processo de inserção
+                      }elseif(is_array($resposta))
+                          echo("<script> alert('".$resposta['message']."');
+                          window.history.back(); </script>");
                 }
             break;
         }
@@ -97,3 +115,4 @@
 
 
 ?>
+

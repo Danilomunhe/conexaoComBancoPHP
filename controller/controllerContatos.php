@@ -45,8 +45,42 @@
      }
 
       //Função para recber dados da View e encaminhar para o Model(atualizar)
-     function atualizarContato(){
-
+     function atualizarContato($dadosContato, $id){
+        if(!empty($dadosContato)){
+            //Validação de caixa vazia dos elementos nome, celular e email pois são obrigatórios no BD
+            if(!empty($dadosContato['txtNome']) && !empty($dadosContato['txtCelular'] && !empty($dadosContato['txtEmail']))){
+                
+                //Validação para que o id seja válido
+                if(!empty($id) && $id != 0 && is_numeric($id)){
+                      
+                    //Criação do array de dados que será encaminhado à model para inserir no banco de dados, 
+                    //é importante criar este array conforme as necessisdade de manipulação do banco de dados.
+                    //OBS: criar a chaves do array conforme os nomes dos atributos do banco de dados para uma facilidade maior
+                    $arrayDados = array(
+                        "idContato" => $id,
+                        "nome" => $dadosContato['txtNome'],
+                        "telefone" => $dadosContato['txtTelefone'],
+                        "celular" => $dadosContato['txtCelular'],
+                        "email" => $dadosContato['txtEmail'],
+                        "observacao" => $dadosContato['txtObs']
+                    );
+    
+                    //Import do arquivo de modelagem para manipular o BD
+                    require_once('model/bd/contato.php');
+                    //Chama a função que fará o insert no BD (etstá função está na model)
+                    if(updateContato($arrayDados))
+                        return true;
+                    else 
+                        return array('idErro' => 1, 
+                                     'message' => 'Não foi possíve atualizar os dados no Banco de Dados');
+                }else
+                    return array('idErro' => 4,
+                    'message' => 'Não é possível editar um registro sem informar um id válido');  
+            }else{
+                return array('idErro' => 2,
+                             'message' => 'Existem campos obrigatórios que não foram preenchidos');
+            }
+        }
      }
 
      //função para buscar um contato através do id do registro
