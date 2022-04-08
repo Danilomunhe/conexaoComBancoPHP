@@ -86,7 +86,7 @@
                 return array('idErro' => 3,
                              'message' => 'O banco de dados não pode excluir o registro');    
         }else
-        return array('idErro' => 4,
+            return array('idErro' => 4,
                      'message' => 'Não é possível excluir um registro sem informar um id válido');   
      }
     //Função para solicitar os dados da model e encaminhar a lista de contatos para a View
