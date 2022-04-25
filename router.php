@@ -31,8 +31,13 @@
                 //Validação para identificar o tipo de ação que será realizada
                if($action=='INSERIR')
                {
-                    //Chama a função de inserir na controller
-                    $resposta = inserirContato($_POST);
+                   if(isset($_FILES) && !empty($_FILES)){
+                       //chama a função de inserir na controller
+                        $resposta = inserirContato($_POST, $_FILES);
+                    }else{
+                        $resposta = inserirContato($_POST, null);
+                    }
+                    
 
                     //Valida o tipo de retorno para ver se foi booleano
                     if(is_bool($resposta)){
