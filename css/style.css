@@ -125,7 +125,7 @@ input[type=email]:hover{
     margin-bottom: 20px;
 }
 #consultaDeDados{
-    width: 1000px;
+    width: 1500px;
     min-height: 300px;
     height: auto;
     border: solid 1px black;
@@ -246,6 +246,7 @@ input[type=email]:hover{
 .foto{
     width: 80px;
     height: 80px;
+    object-fit: cover;
 }
 
 #visualizarFoto{
@@ -257,14 +258,12 @@ input[type=email]:hover{
 #visualizarFoto img{
     width: inherit;
     height: inherit;
+ 
 }
-
 
 #login{
     height: 200px;
 }
-
-
 
 
 
