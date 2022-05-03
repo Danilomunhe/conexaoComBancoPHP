@@ -81,6 +81,9 @@ select {
     height: 30px;
     margin-left: 10px;
     width: 90%;
+    background-color: gray;
+    transition: 1s all linear;
+    color: white;
 
 }
 
@@ -89,6 +92,7 @@ input[type=tel]:hover,
 input[type=email]:hover{
     background-color: rgb(246, 246, 196);
     transition: 1s;
+    color: black;
 }
 
 
@@ -96,6 +100,17 @@ input[type=email]:hover{
     width: 90%;
     height: 100px;
     resize: none;
+    background-color: gray;
+    color: white;
+    transition: 1s all linear;
+}
+
+.cadastroEntradaDeDados textarea:hover{
+    width: 90%;
+    height: 100px;
+    resize: none;
+    background-color: white;
+    color: black;
 }
 .enviar input{
     width: 150px;
@@ -122,7 +137,7 @@ input[type=email]:hover{
     height: 50px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 50px;
+    margin-top: 10px;
     margin-bottom: 20px;
 }
 #consultaDeDados{

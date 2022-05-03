@@ -18,7 +18,7 @@
             //Validação de caixa vazia dos elementos nome, celular e email pois são obrigatórios no BD
             if(!empty($dadosContato['txtNome']) && !empty($dadosContato['txtCelular'] && !empty($dadosContato['txtEmail']))){
                 
-                if($file !=null){
+                if($file['fleFoto']['name'] !=null){
                     //import da função de upload
                     require_once('modulo/upload.php');
 
@@ -62,7 +62,16 @@
      }
 
       //Função para recber dados da View e encaminhar para o Model(atualizar)
-     function atualizarContato($dadosContato, $id){
+     function atualizarContato($dadosContato, $arrayDados){
+        //recebe o id enviado pelo array dados 
+        $id = $arrayDados['id'];
+
+        //recebe a foto enviada pelo array dados (nome da foto que já existe no bd)
+        $foto = $arrayDados['foto'];
+
+        //recebe o objeto de array com a nova foto que poderá ser enviada ao servidor
+        $file = $arrayDados['file'];
+
         if(!empty($dadosContato)){
             //Validação de caixa vazia dos elementos nome, celular e email pois são obrigatórios no BD
             if(!empty($dadosContato['txtNome']) && !empty($dadosContato['txtCelular'] && !empty($dadosContato['txtEmail']))){
@@ -70,6 +79,17 @@
                 //Validação para que o id seja válido
                 if(!empty($id) && $id != 0 && is_numeric($id)){
                       
+                    //validação para identificar se será enviado ao servidor uma nova foto
+                    if($file['fleFoto']['name'] != null){
+                        //import da função de upload
+                        require_once('modulo/upload.php');
+
+                        //chama a função de upload
+                        $novaFoto = uploadFile($file['fleFoto']);
+                    }else{
+                        //permanece a mesma foto no bd
+                        $novaFoto = $foto;
+                    }
                     //Criação do array de dados que será encaminhado à model para inserir no banco de dados, 
                     //é importante criar este array conforme as necessisdade de manipulação do banco de dados.
                     //OBS: criar a chaves do array conforme os nomes dos atributos do banco de dados para uma facilidade maior
@@ -79,7 +99,8 @@
                         "telefone" => $dadosContato['txtTelefone'],
                         "celular" => $dadosContato['txtCelular'],
                         "email" => $dadosContato['txtEmail'],
-                        "observacao" => $dadosContato['txtObs']
+                        "observacao" => $dadosContato['txtObs'],
+                        "foto" => $novaFoto
                     );
     
                     //Import do arquivo de modelagem para manipular o BD
@@ -139,13 +160,17 @@
             //Chama a função da model e valida se o retorno foi verdadeiro ou falso 
             if(deleteContato($id)){
                   
+                if($foto != null){
+                    
                    //unlink() - função para apagar um arquivo de uma pasta
                    //permite apagar a foto da pasta
                    if(unlink(DIRETORIO_FILE_UPLOAD.$foto))
                         return true;
                    else
                         return array('idErro' => 5,
-                        'message' => 'O registro foi excluido com sucesso, porém a imagem não foi excluida do diretorio do servidor');                               
+                        'message' => 'O registro foi excluido com sucesso, porém a imagem não foi excluida do diretorio do servidor');  
+                }else
+                return true;                             
             }
              
             else 

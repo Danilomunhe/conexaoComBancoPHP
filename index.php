@@ -10,6 +10,9 @@
         //Essa variavel foi criada para diferenciar no acion do formulário qual ação deveria ser levada para a router
         //Nas condições abaixo mudamos o action dessa variavel para ação editar
 
+        //import do arquivo de configurações do projeto
+        require_once('modulo/config.php');
+        
         $form = (string) "router.php?component=contatos&action=inserir";
 
         //Variavel para carregar o nome da foto
@@ -24,9 +27,10 @@
             $celular    = $_SESSION['dadosContato']['celular'];
             $email      = $_SESSION['dadosContato']['email'];
             $obs        = $_SESSION['dadosContato']['obs'];
+            $foto        = $_SESSION['dadosContato']['foto'];
 
             //Mudamos a ação para editar
-            $form = "router.php?component=contatos&action=editar&id=".$id;
+            $form = "router.php?component=contatos&action=editar&id=".$id."&foto=".$foto;
 
             //Destrói uma variável
             unset($_SESSION['dadosContato']);
@@ -104,6 +108,7 @@
                             <textarea name="txtObs" cols="50" rows="7"><?=isset($obs)?$obs:null?></textarea>
                         </div>
                     </div>
+                    <div> <img src = "<?=DIRETORIO_FILE_UPLOAD.$foto?>" class="foto"></div>
                     <div class="enviar">
                         <div class="enviar">
                             <input type="submit" name="btnEnviar" value="Salvar">
@@ -143,7 +148,7 @@
                     <td class="tblColunas registros"><?=$item['nome']?></td>
                     <td class="tblColunas registros"><?=$item['celular']?></td>
                     <td class="tblColunas registros"><?=$item['email']?></td>
-                    <td class="tblColunas registros"><img src = "arquivos/<?=$foto?>" class="foto"></td>
+                    <td class="tblColunas registros"><img src = "<?=DIRETORIO_FILE_UPLOAD.$foto?>" class="foto"></td>
                    
                     <td class="tblColunas registros">
                             <a href="router.php?component=contatos&action=buscar&id=<?=$item['id']?>">

@@ -104,10 +104,22 @@
                     //header('location: index.php')
                 }elseif($action == "EDITAR"){
                     
-                     //Recebe o id que foi enviado via action do form pela url
+                    //Recebe o id que foi enviado via action do form pela url
                     $idContato = $_GET['id'];
+
+                    //Recebe o nome d foto que foi enviada via get
+                    $foto = $_GET['foto'];
+
+                    
+                    //Criamos um array para enviar dados
+                    $arrayDados = array(
+                        "id"    => $idContato,
+                        "foto"  => $foto,
+                        "file"  => $_FILES
+                      );
+
                     //Chama a função de inserir na controller
-                    $resposta = atualizarContato($_POST, $idContato);
+                    $resposta = atualizarContato($_POST, $arrayDados);
 
                     //Valida o tipo de retorno para ver se foi booleano
                       if(is_bool($resposta)){
