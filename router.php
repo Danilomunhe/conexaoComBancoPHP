@@ -57,8 +57,15 @@
                     //que foi enviado pela url no link da imagem do excluir
                     //que foi acionado na index 
                     $idContato = $_GET['id'];
+                    $foto = $_GET['foto'];
 
-                    $resposta = excluirContato($idContato);
+                    //Criamos um array para enviar dados
+                    $arrayDados = array(
+                      "id"    => $idContato,
+                      "foto"  => $foto  
+                    );
+
+                    $resposta = excluirContato($arrayDados);
 
                     if(is_bool($resposta)){
                         //verificar se o retorno foi verdadeiro

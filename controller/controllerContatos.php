@@ -122,7 +122,11 @@
         }
      }
       //Função para realizar a exclusão de um dado
-     function excluirContato($id){
+     function excluirContato($arrayDados){
+        
+        //Recebe o id do registro que será excluido
+        $id = $arrayDados['id'];
+        $foto = $arrayDados['foto'];
         
         //validação para realizar se o id contém um número válido
         if($id!=0 && !empty($id) && is_numeric($id)){
@@ -130,9 +134,20 @@
             //Import do arquivo de conexão
             require_once('model/bd/contato.php');
 
+            require_once('modulo/config.php');
+
             //Chama a função da model e valida se o retorno foi verdadeiro ou falso 
-            if(deleteContato($id))
-                return true;
+            if(deleteContato($id)){
+                  
+                   //unlink() - função para apagar um arquivo de uma pasta
+                   //permite apagar a foto da pasta
+                   if(unlink(DIRETORIO_FILE_UPLOAD.$foto))
+                        return true;
+                   else
+                        return array('idErro' => 5,
+                        'message' => 'O registro foi excluido com sucesso, porém a imagem não foi excluida do diretorio do servidor');                               
+            }
+             
             else 
                 return array('idErro' => 3,
                              'message' => 'O banco de dados não pode excluir o registro');    

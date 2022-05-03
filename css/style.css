@@ -15,6 +15,7 @@ body, h1, p{
     box-sizing: border-box;
     border: solid 1px black;
     box-shadow: 10px 10px 10px #cccccc;
+    background-color: dodgerblue;
 }
 
 #login{
@@ -32,7 +33,7 @@ body, h1, p{
 #cadastroTitulo{
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    background-color: dodgerblue;
+    background-color: black;
     width: auto;
     height: 120px;
     text-align: center;
@@ -53,14 +54,14 @@ body, h1, p{
     width: 270px;
     height: 55px;
     float: left;
-   
-    background-color: #ededed;
+    background-color: purple;
     text-align: right;
     font-size: 1.1em;
     padding-top: 10px;
     padding-right: 10px;
     box-sizing: border-box;
     margin-right: 10px;
+    color: white;
     
 }
 .cadastroEntradaDeDados {
@@ -99,21 +100,21 @@ input[type=email]:hover{
 .enviar input{
     width: 150px;
     height: 50px;
-    background-color: dodgerblue;
+    background-color: gray;
     color: white;
     margin-top: 30px;
     font-size: 1.2em;
     transition: 1s;
     border: none;
     border-radius: 10px;
+    
 }
 
 .enviar input:hover{
-    background-color: rgb(2, 131, 45);
+    background-color: rgb(69, 2, 131);
     cursor: pointer;
     transform: scale(1.1);
     
-
 }
 
 .enviar{
@@ -133,7 +134,7 @@ input[type=email]:hover{
     margin-right: auto;
     margin-top: 60px;
     margin-bottom: 10px;
-    box-shadow: 10px 10px 10px #cccccc;
+    box-shadow: 10px 10px 10px #cccccc; 
 }
 #tblConsulta{
     width: 100%;
@@ -152,13 +153,15 @@ input[type=email]:hover{
     width: 100%;
     height: 50px;
     border: solid 1px black;
+   
 }
 .tblColunas{
     width: 50px;
     height: 30px;
     text-align: center;
-    background-color: darkseagreen;
+    background-color: purple;
     border: solid 1px black;
+    color: white;
 }
 .tblImagens{
     width: auto;
@@ -216,7 +219,7 @@ input[type=email]:hover{
 }
 
 .registros{
-    background-color: #faf9f9;
+    background-color: gray;
 }
 
 .destaque{

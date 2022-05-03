@@ -11,6 +11,9 @@
         //Nas condições abaixo mudamos o action dessa variavel para ação editar
 
         $form = (string) "router.php?component=contatos&action=inserir";
+
+        //Variavel para carregar o nome da foto
+        $foto = (string) null;
     //valida se a utilização de variaveis de sessao esta ativa no servidor
     if(session_status()){
         //valida se a variável de sessão dados contatos não está vazia
@@ -131,21 +134,23 @@
                     $listContato = listarContato();
 
                     //Estrutura de repetição para retirar os dados da array
-                    foreach($listContato as $item){                
+                    foreach($listContato as $item){        
+                        //variavel para carregar a foto dentro do banco de dados
+                        $foto = $item['foto']        
                 ?>
 
                 <tr id="tblLinhas">
                     <td class="tblColunas registros"><?=$item['nome']?></td>
                     <td class="tblColunas registros"><?=$item['celular']?></td>
                     <td class="tblColunas registros"><?=$item['email']?></td>
-                    <td class="tblColunas registros"><img src = "arquivos/<?=$item['foto']?>" class="foto"></td>
+                    <td class="tblColunas registros"><img src = "arquivos/<?=$foto?>" class="foto"></td>
                    
                     <td class="tblColunas registros">
                             <a href="router.php?component=contatos&action=buscar&id=<?=$item['id']?>">
                                 <img src="img/edit.png" alt="Editar" title="Editar" class="editar">
                             </a>
                             
-                            <a onclick="return confirm('Deseja realmente excluir este item?');" href="router.php?component=contatos&action=deletar&id=<?=$item['id']?>">
+                            <a onclick="return confirm('Deseja realmente excluir este item?');" href="router.php?component=contatos&action=deletar&id=<?=$item['id']?>&foto=<?=$foto?>">
                                 <img src="img/trash.png" alt="Excluir" title="Excluir" class="excluir">
                             </a>
                             <img src="img/search.png" alt="Visualizar" title="Visualizar" class="pesquisar">
