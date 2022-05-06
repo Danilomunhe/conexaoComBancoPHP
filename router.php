@@ -125,8 +125,9 @@
                       if(is_bool($resposta)){
                           //verificar se o retorno foi verdadeiro
                           if($resposta)
-                              echo("<script>alert('Registro Atualizado com sucesso');
-                              window.location.href='index.php'</script>"); 
+                            //   echo("<script>alert('Registro Atualizado com sucesso');
+                            //   window.location.href='index.php'</script>"); 
+                            echo('kdkwd');
   
                       //Se o retorno for um array significa que houve um erro mo processo de inserção
                       }elseif(is_array($resposta))

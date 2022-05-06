@@ -62,7 +62,7 @@
                                             obs      ='".$dadosContato['observacao']."',
                                             foto    ='".$dadosContato['foto']."'  
                                             where idcontato=".$dadosContato['idContato'];
-            
+                
             //Executa o script no BD
                 //Valiação para verificar se o script sql está correto
            if (mysqli_query($conexao, $sql)){
@@ -75,7 +75,7 @@
             fecharConexao($conexao);
     
             return $statusResposta; 
-    }
+     }
 
     //função para realizar o delete no banco de dados
     function deleteContato($id){
@@ -99,7 +99,7 @@
             fecharConexao($conexao);
             return $statusResposta;
 
-    }
+     }
 
     //função para realizar o select no banco de dados
     function selectAllContato(){
@@ -146,7 +146,7 @@
 
             return $arrayDados;
         }
-    }
+     }
 
     //função para realizar o select no banco de dados pelo id                                       
     function selectByIdContato($id){

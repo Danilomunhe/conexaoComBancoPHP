@@ -63,6 +63,7 @@
 
       //Função para recber dados da View e encaminhar para o Model(atualizar)
      function atualizarContato($dadosContato, $arrayDados){
+        $statusUpload = (boolean) false;
         //recebe o id enviado pelo array dados 
         $id = $arrayDados['id'];
 
@@ -76,6 +77,7 @@
             //Validação de caixa vazia dos elementos nome, celular e email pois são obrigatórios no BD
             if(!empty($dadosContato['txtNome']) && !empty($dadosContato['txtCelular'] && !empty($dadosContato['txtEmail']))){
                 
+                require_once('modulo/upload.php');
                 //Validação para que o id seja válido
                 if(!empty($id) && $id != 0 && is_numeric($id)){
                       
@@ -86,6 +88,7 @@
 
                         //chama a função de upload
                         $novaFoto = uploadFile($file['fleFoto']);
+                        $statusUpload = true;
                     }else{
                         //permanece a mesma foto no bd
                         $novaFoto = $foto;
@@ -106,8 +109,12 @@
                     //Import do arquivo de modelagem para manipular o BD
                     require_once('model/bd/contato.php');
                     //Chama a função que fará o insert no BD (etstá função está na model)
-                    if(updateContato($arrayDados))
-                        return true;
+                    if(updateContato($arrayDados)){
+                        if($statusUpload)
+                            unlink(DIRETORIO_FILE_UPLOAD.$foto);    
+                    return true;
+                    }
+                        
                     else 
                         return array('idErro' => 1, 
                                      'message' => 'Não foi possíve atualizar os dados no Banco de Dados');
@@ -170,7 +177,7 @@
                         return array('idErro' => 5,
                         'message' => 'O registro foi excluido com sucesso, porém a imagem não foi excluida do diretorio do servidor');  
                 }else
-                return true;                             
+                    return true;                             
             }
              
             else 
