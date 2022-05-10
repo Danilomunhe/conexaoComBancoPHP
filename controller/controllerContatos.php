@@ -8,6 +8,7 @@
          * Versão:1.0
          ****************************************************/
 
+        require_once('modulo/config.php');
     //Função para recber dados da View e encaminhar para o Model(inserir)
      function inserirContato($dadosContato, $file){
         
@@ -77,7 +78,7 @@
             //Validação de caixa vazia dos elementos nome, celular e email pois são obrigatórios no BD
             if(!empty($dadosContato['txtNome']) && !empty($dadosContato['txtCelular'] && !empty($dadosContato['txtEmail']))){
                 
-                require_once('modulo/upload.php');
+                
                 //Validação para que o id seja válido
                 if(!empty($id) && $id != 0 && is_numeric($id)){
                       
