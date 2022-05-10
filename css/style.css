@@ -81,9 +81,9 @@ select {
     height: 30px;
     margin-left: 10px;
     width: 90%;
-    background-color: gray;
+    background-color: whitesmoke;
     transition: 1s all linear;
-    color: white;
+    color: black;
 
 }
 
@@ -100,7 +100,7 @@ input[type=email]:hover{
     width: 90%;
     height: 100px;
     resize: none;
-    background-color: gray;
+    background-color: white;
     color: white;
     transition: 1s all linear;
 }
@@ -117,7 +117,6 @@ input[type=email]:hover{
     height: 50px;
     background-color: gray;
     color: white;
-    margin-top: 30px;
     font-size: 1.2em;
     transition: 1s;
     border: none;

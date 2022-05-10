@@ -13,6 +13,7 @@
         //import do arquivo de configurações do projeto
         require_once('modulo/config.php');
         
+        $idestado= (string) null;
         $form = (string) "router.php?component=contatos&action=inserir";
 
         //Variavel para carregar o nome da foto
@@ -28,6 +29,7 @@
             $email      = $_SESSION['dadosContato']['email'];
             $obs        = $_SESSION['dadosContato']['obs'];
             $foto        = $_SESSION['dadosContato']['foto'];
+            $idestado        = $_SESSION['dadosContato']['idestado'];
 
             //Mudamos a ação para editar
             $form = "router.php?component=contatos&action=editar&id=".$id."&foto=".$foto;
@@ -65,7 +67,30 @@
                             <input type="text" name="txtNome" value="<?=isset($nome)?$nome:null?>" placeholder="Digite seu Nome" maxlength="100">
                         </div>
                     </div>
-                                     
+
+                     <div class="campos">
+                        <div class="cadastroInformacoesPessoais">
+                            <label> Estado: </label>
+                        </div>
+                        <div class="cadastroEntradaDeDados">
+                            <select name="sltEstado" id="">
+                                <option value="">Selecione um item</option>
+                                <?php
+                                    require_once('controller/controllerEstados.php');
+                                    if($listEstados = listarEstado())
+                                    {
+
+                                    
+                                    foreach($listEstados as $item){
+                                        ?>
+                                            <option <?=$idestado==$item['id']?'selected':null ?> value="<?=$item['id']?>"><?=$item['nome']?></option>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>         
                     <div class="campos">
                         <div class="cadastroInformacoesPessoais">
                             <label> Telefone: </label>
@@ -136,7 +161,9 @@
                 <?php
                     //import do arquivo da controller para solicitar a listagem dos dados
                     require_once('controller/controllerContatos.php');
-                    $listContato = listarContato();
+                    if($listContato = listarContato()){
+
+                    
 
                     //Estrutura de repetição para retirar os dados da array
                     foreach($listContato as $item){        
@@ -163,6 +190,7 @@
                 </tr>
             <?php    
              }
+            }
             ?>
             </table>
         </div>

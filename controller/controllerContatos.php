@@ -17,7 +17,7 @@
         //Validação para verificar se o objeto está vázio
         if(!empty($dadosContato)){
             //Validação de caixa vazia dos elementos nome, celular e email pois são obrigatórios no BD
-            if(!empty($dadosContato['txtNome']) && !empty($dadosContato['txtCelular'] && !empty($dadosContato['txtEmail']))){
+            if(!empty($dadosContato['txtNome']) && !empty($dadosContato['txtCelular']) && !empty($dadosContato['txtEmail']) && !empty($dadosContato['sltEstado'])){
                 
                 if($file['fleFoto']['name'] !=null){
                     //import da função de upload
@@ -38,12 +38,14 @@
                 //OBS: criar a chaves do array conforme os nomes dos atributos do banco de dados para uma facilidade maior
 
                 $arrayDados = array(
-                    "nome" => $dadosContato['txtNome'],
-                    "telefone" => $dadosContato['txtTelefone'],
-                    "celular" => $dadosContato['txtCelular'],
-                    "email" => $dadosContato['txtEmail'],
+                    "nome"       => $dadosContato['txtNome'],
+                    "telefone"   => $dadosContato['txtTelefone'],
+                    "celular"    => $dadosContato['txtCelular'],
+                    "email"      => $dadosContato['txtEmail'],
                     "observacao" => $dadosContato['txtObs'],
-                    "foto" => $nomeFoto
+                    "foto"       => $nomeFoto,
+                    "idEstado"  => $dadosContato['sltEstado']
+
                 );
 
                 //Import do arquivo de modelagem para manipular o BD
@@ -104,7 +106,8 @@
                         "celular" => $dadosContato['txtCelular'],
                         "email" => $dadosContato['txtEmail'],
                         "observacao" => $dadosContato['txtObs'],
-                        "foto" => $novaFoto
+                        "foto" => $novaFoto,
+                        "idestado" => $dadosContato['sltEstado']
                     );
     
                     //Import do arquivo de modelagem para manipular o BD

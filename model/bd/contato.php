@@ -24,13 +24,15 @@
                                         celular, 
                                         email, 
                                         obs,
-                                        foto)
+                                        foto,
+                                        idestado)
                                     values('".$dadosContato['nome']."', 
                                     '".$dadosContato['telefone']."', 
                                     '".$dadosContato['celular']."', 
                                     '".$dadosContato['email']."', 
                                     '".$dadosContato['observacao']."',
-                                    '".$dadosContato['foto']."');";
+                                    '".$dadosContato['foto']."',
+                                    '".$dadosContato['idEstado']."');";
         
         //Executa o script no BD
             //Valiação para verificar se o script sql está correto
@@ -60,7 +62,8 @@
                                             celular  ='".$dadosContato['celular']."', 
                                             email    ='".$dadosContato['email']."', 
                                             obs      ='".$dadosContato['observacao']."',
-                                            foto    ='".$dadosContato['foto']."'  
+                                            foto    ='".$dadosContato['foto']."',
+                                            idestado    ='".$dadosContato['idestado']."'  
                                             where idcontato=".$dadosContato['idContato'];
                 
             //Executa o script no BD
@@ -136,7 +139,8 @@
                     "celular"  => $rsDados['celular'],
                     "email"    => $rsDados['email'],
                     "obs"      => $rsDados['obs'],
-                    "foto"    => $rsDados['foto']
+                    "foto"     => $rsDados['foto'],
+                    "idestado" => $rsDados['idestado']
                 );
                 $cont++;
             }
@@ -144,7 +148,10 @@
             //solicita o fechamento da conexao com o banco de dados
             fecharConexao($conexao);
 
-            return $arrayDados;
+            if(isset($arrayDados))
+                return $arrayDados;
+            else
+                return false;
         }
      }
 
@@ -176,13 +183,14 @@
                
                 //Cria um array com os dados do BD
                 $arrayDados = array(
-                    "id"       => $rsDados['idcontato'],
-                    "nome"     => $rsDados['nome'],
-                    "telefone" => $rsDados['telefone'],
-                    "celular"  => $rsDados['celular'],
-                    "email"    => $rsDados['email'],
-                    "obs"      => $rsDados['obs'],
-                    "foto"      => $rsDados['foto']
+                    "id"        => $rsDados['idcontato'],
+                    "nome"      => $rsDados['nome'],
+                    "telefone"  => $rsDados['telefone'],
+                    "celular"   => $rsDados['celular'],
+                    "email"     => $rsDados['email'],
+                    "obs"       => $rsDados['obs'],
+                    "foto"      => $rsDados['foto'],
+                    "idestado"  => $rsDados['idestado']
                 );
             }
         }
